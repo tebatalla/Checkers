@@ -22,7 +22,7 @@ class Piece
     @king
   end
 
-  def kinged
+  def make_king
     @king = true
   end
 
@@ -112,7 +112,7 @@ class Piece
 
   def maybe_promote
     if (color == :black && pos[0] == 7) || (color == :white && pos[0] == 0)
-      kinged
+      make_king
     end
   end
 end

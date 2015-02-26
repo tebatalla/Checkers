@@ -77,7 +77,8 @@ class Piece
     else
       pos.all? { |coord| coord.between?(0,7) } && board[pos].nil? &&
       move_diffs.none? do |move|
-        jump_diff(move[1]) == pos && self.board[slide_diff(move[1])].color != color
+        jump_diff(move[1]) == pos &&
+          self.board[slide_diff(move[1])].color != color
       end
     end
   end
@@ -104,6 +105,8 @@ class Piece
   end
 
   def maybe_promote
-    kinged if (color == :black && pos[0] == 7) || (color == :white && pos[0] == 0)
+    if (color == :black && pos[0] == 7) || (color == :white && pos[0] == 0)
+      kinged
+    end
   end
 end

@@ -121,6 +121,9 @@ class Piece
           self.board[slide_diff(move[1])].color != color
       end
     end
+    rescue NoMethodError
+      false
+    end
   end
 
   def direction

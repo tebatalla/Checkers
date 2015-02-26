@@ -41,6 +41,11 @@ class Board
     duplicate
   end
 
+  def move(sequence)
+    start = sequence.shift
+    self[start].perform_moves(sequence)
+  end
+
   private
 
   def make_grid

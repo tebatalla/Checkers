@@ -9,7 +9,7 @@ class Piece
     @color = color
     @pos = pos
     @board = board
-    @king = false
+    @king = king
 
     board[pos] = self
   end
@@ -57,6 +57,39 @@ class Piece
     Piece.new(self.color, self.pos.dup, board, self.king?)
   end
 
+  def perform_moves!(sequence)
+    if sequence.length == 1
+      return if perform_slide(sequence.first)
+      return if perform_jump(sequence.first)
+      raise InvalidMoveError
+    else
+      sequence.each do |move|
+        next if perform_jump(move)
+        raise InvalidMoveError
+      end
+      true
+    end
+  end
+
+  def valid_move_seq?(sequence)
+    dup_board = board.dup
+    begin
+      dup_board[self.pos].perform_moves!(sequence)
+    rescue InvalidMoveError
+      false
+    else
+      true
+    end
+  end
+
+  def perform_moves(sequence)
+    if valid_move_seq?(sequence)
+      perform_moves!(sequence)
+    else
+      raise InvalidMoveError
+    end
+  end
+
   private
 
   def remove_piece(piece)
@@ -75,15 +108,16 @@ class Piece
   end
 
   def valid_pos?(pos, slide)
+    begin
     if slide == :slide
       pos.all? { |coord| coord.between?(0,7) } && board[pos].nil? &&
       move_diffs.any? do |move|
-        slide_diff(move[1]) == pos
+        slide_diff(move) == pos
       end
     else
       pos.all? { |coord| coord.between?(0,7) } && board[pos].nil? &&
-      move_diffs.none? do |move|
-        jump_diff(move[1]) == pos &&
+      move_diffs.any? do |move|
+        jump_diff(move) == pos &&
           self.board[slide_diff(move[1])].color != color
       end
     end
@@ -94,11 +128,11 @@ class Piece
   end
 
   def slide_diff(move)
-    [self.pos[0].send(direction, 1), self.pos[1] + move[1]]
+    [self.pos[0].send(direction, move[0]), self.pos[1] + move[1]]
   end
 
   def jump_diff(move)
-    [self.pos[0].send(direction, 2), self.pos[1] + (move[1] * 2)]
+    [self.pos[0].send(direction, move[0] * 2), self.pos[1] + (move[1] * 2)]
   end
 
   def jumped_piece(pos)
@@ -115,4 +149,7 @@ class Piece
       make_king
     end
   end
+end
+
+class InvalidMoveError < RuntimeError
 end

@@ -51,8 +51,9 @@ class Board
     return { background: toggle ? :white : :black }
   end
 
-  def populate_board(copy)
-    if copy
+  def pieces
+    self.grid.flatten.compact
+  end
 
   def populate_board
     playable_tile = true

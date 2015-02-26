@@ -31,6 +31,16 @@ class Board
     nil
   end
 
+  def dup
+    duplicate = Board.new(false)
+
+    pieces.each do |piece|
+      piece.dup(duplicate)
+    end
+
+    duplicate
+  end
+
   private
 
   def make_grid

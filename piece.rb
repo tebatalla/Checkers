@@ -5,11 +5,13 @@ class Piece
   attr_reader :color, :pos
   attr_accessor :board
 
-  def initialize(color, pos, board)
+  def initialize(color, pos, board, king = false)
     @color = color
     @pos = pos
     @board = board
     @king = false
+
+    board[pos] = self
   end
 
   def inspect
@@ -49,6 +51,10 @@ class Piece
     else
       return false
     end
+  end
+
+  def dup(board)
+    Piece.new(self.color, self.pos.dup, board, self.king?)
   end
 
   private

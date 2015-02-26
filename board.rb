@@ -8,6 +8,10 @@ class Board
     populate_board if fill_grid
   end
 
+  def inspect
+    self.display
+  end
+
   def [](pos)
     self.grid[pos[0]][pos[1]]
   end
@@ -21,7 +25,7 @@ class Board
     tile = true
     self.grid.each do |row|
       row.each do |spot|
-        print (spot ? " " + spot.inspect + "  " : " \u2003  ").colorize(tile_color(tile))
+        print (spot ? " " + spot.inspect + " " : " \u2003 ").colorize(tile_color(tile))
         tile = !tile
       end
       tile = !tile
@@ -53,7 +57,7 @@ class Board
   end
 
   def tile_color(toggle)
-    return { background: toggle ? :white : :black }
+    return { background: toggle ? :red : :black }
   end
 
   def pieces
@@ -81,6 +85,5 @@ class Board
         playable_tile = !playable_tile
       end
     end
-    self.display
   end
 end

@@ -15,7 +15,7 @@ class Piece
   end
 
   def inspect
-    self.color == :black ? "\u26AB" : "\u26AA"
+      (king? ? "\u26C3" : "\u26C2").colorize(self.color)
   end
 
   def king?

@@ -21,17 +21,20 @@ class Board
   end
 
   def display
-    i = 8
+    i = 0
     tile = true
+    puts "  0  1  2  3  4  5  6  7 "
     self.grid.each do |row|
+      print "#{i}"
       row.each do |spot|
         print (spot ? " " + spot.inspect + " " : " \u2003 ").colorize(tile_color(tile))
         tile = !tile
       end
+      print " #{i}\n"
       tile = !tile
-      print "\n"
-      i -= 1
+      i += 1
     end
+    puts "  0  1  2  3  4  5  6  7 "
     nil
   end
 

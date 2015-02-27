@@ -47,15 +47,15 @@ class Board
     duplicate
   end
 
-  def move(sequence)
+  def move(sequence, color)
     start = sequence.shift
-    self[start].perform_moves(sequence)
+    self[start].perform_moves(sequence, color)
   end
 
   def pieces
     self.grid.flatten.compact
   end
-  
+
   private
 
   def make_grid

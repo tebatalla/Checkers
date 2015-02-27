@@ -19,8 +19,7 @@ class HumanPlayer
         puts "Any more moves for this piece? (y/n)"
         break unless gets.chomp == "y"
       end
-      debugger
-      board.move([piece], moves)
+      board.move([piece] + moves, color)
     rescue InvalidMoveError
       render_board(board)
       puts "That was an invalid move, try again."

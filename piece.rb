@@ -82,7 +82,8 @@ class Piece
     end
   end
 
-  def perform_moves(sequence)
+  def perform_moves(sequence, color)
+    raise NotSameColor if self.color != color
     if valid_move_seq?(sequence)
       perform_moves!(sequence)
     else
@@ -155,4 +156,7 @@ class Piece
 end
 
 class InvalidMoveError < RuntimeError
+end
+
+class NotSameColor < RuntimeError
 end

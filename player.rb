@@ -48,7 +48,22 @@ class ComputerPlayer
     @name = "Beep boop beep"
   end
 
-  def play_turn
-
+  # Doesn't work, need to narrow down valid moves at the piece level
+  def play_turn(board, color)
+    my_pieces = board.pieces.select { |piece| piece.color == color}
+    nil_spots = board.empty_spots
+    my_pieces.each do |piece|
+      nil_spots_dup = nil_spots.dup
+      until nil_spots_dup.empty?
+        nil_spots_dup.permutation.each do |perm|
+          begin
+            return if board.move(piece.pos + perm, color)
+          rescue
+            next
+          end
+        end
+        nil_spots_dup.pop
+      end
+    end
   end
 end

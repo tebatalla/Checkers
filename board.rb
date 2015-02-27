@@ -53,6 +53,10 @@ class Board
     self[start].perform_moves(sequence)
   end
 
+  def pieces
+    self.grid.flatten.compact
+  end
+  
   private
 
   def make_grid
@@ -61,10 +65,6 @@ class Board
 
   def tile_color(toggle)
     return { background: toggle ? :red : :black }
-  end
-
-  def pieces
-    self.grid.flatten.compact
   end
 
   def populate_board

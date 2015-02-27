@@ -9,7 +9,6 @@ class Board
   end
 
   def inspect
-    self.display
   end
 
   def [](pos)
@@ -88,5 +87,6 @@ class Board
         playable_tile = !playable_tile
       end
     end
+    nil
   end
 end

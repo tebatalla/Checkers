@@ -14,6 +14,11 @@ class Game
     @board = Board.new
   end
 
+  def inspect
+    "Game created with #{players[:black].name} and #{players[:white].name}." +
+    " To start the game, call play on the game object!"
+  end
+
   def play
     until over?
       players[current_player].play_turn(self.board, current_player)

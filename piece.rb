@@ -15,7 +15,7 @@ class Piece
   end
 
   def inspect
-      (king? ? "\u26C3" : "\u26C2").colorize(self.color)
+      (king? ? "⛃" : "⛂").colorize(self.color)
   end
 
   def king?

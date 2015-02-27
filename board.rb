@@ -19,6 +19,16 @@ class Board
     self.grid[pos[0]][pos[1]] = piece
   end
 
+  def empty_spots
+    empty_spots = []
+    grid.each_with_index do |row, row_i|
+      row.each_with_index do |col,  col_i|
+        empty_spots << [row_i, col_i] if self.grid[row_i][col_i].nil?
+      end
+    end
+    empty_spots
+  end
+
   def display
     i = 0
     tile = true
